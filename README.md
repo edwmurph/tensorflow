@@ -7,8 +7,9 @@
 
 # Running the code
 
-Execute the script via:
+Navigate into lib directory of project and execute the main python script.
 ```
+cd weather/lib
 python main.py
 ```
 
