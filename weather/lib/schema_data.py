@@ -1,26 +1,23 @@
 import numpy as np
 from util.noob import *
 
-# dictionary of columns to extract from data mapped to:
+# dictionary of original columns to extract from data mapped to:
 # - how to rename them
 # - their dtype
 columns_dic = {
     'Date': {'dtype': np.unicode_, 'name': 'date'},
 
-    'AVG DAILY TEMP. (all hours) °F': {'dtype': np.float64, 'name': 'avg_temp_6'},
-    'AVG DAILY TEMP. (X/N)°F': {'dtype': np.float64, 'name': 'avg_temp_5'},
-    'NORMAL AVG DAILY TEMP. (all hours) °F': {'dtype': np.float64, 'name': 'avg_temp_4'},
-    'NORMAL AVG DAILY TEMP. (X/N) °F': {'dtype': np.float64, 'name': 'avg_temp_3'},
-    'DFN AVG DAILY TEMP. (all hours) °F': {'dtype': np.float64, 'name': 'avg_temp_2'},
-    'DFN AVG DAILY TEMP. (X/N) °F': {'dtype': np.float64, 'name': 'avg_temp'},
-    'AVG HEAT INDEX TEMP. (all hours) °F': {'dtype': np.float64, 'name': 'avg_heat_index_2'},
-    'AVG HEAT INDEX TEMP. (X/N)°F': {'dtype': np.float64, 'name': 'avg_heat_index'},
-    'AVG DAILY WINDCHILL TEMP. (all hours) °F': {'dtype': np.float64, 'name': 'avg_wind_chill_temp'},
-    'DAILY AVG WIND CHILL ENERGY W/M^2 (all hours)': {'dtype': np.float64, 'name': 'avg_wind_chill_energy'},
+    'AVG DAILY TEMP. (all hours) °F': {'dtype': np.float64, 'name': 'avg_temp'},
+    'AVG DAILY TEMP. (X/N)°F': {'dtype': np.float64, 'name': 'avg_temp_2'},
     'DAILY AVG FEELS LIKE TEMP. (all hours) °F': {'dtype': np.float64, 'name': 'avg_feels_like'},
 
-    'AVG DAILY DEW POINT TEMP. (all hours) °F': {'dtype': np.float64, 'name': 'avg_dew_point_2'},
-    'AVG DAILY DEW POINT TEMP. (X/N) °F': {'dtype': np.float64, 'name': 'avg_dew_point'},
+    'AVG HEAT INDEX TEMP. (all hours) °F': {'dtype': np.float64, 'name': 'avg_heat_index'},
+    'AVG HEAT INDEX TEMP. (X/N)°F': {'dtype': np.float64, 'name': 'avg_heat_index_2'},
+    'AVG DAILY WINDCHILL TEMP. (all hours) °F': {'dtype': np.float64, 'name': 'avg_wind_chill_temp'},
+    'DAILY AVG WIND CHILL ENERGY W/M^2 (all hours)': {'dtype': np.float64, 'name': 'avg_wind_chill_energy'},
+
+    'AVG DAILY DEW POINT TEMP. (all hours) °F': {'dtype': np.float64, 'name': 'avg_dew_point'},
+    'AVG DAILY DEW POINT TEMP. (X/N) °F': {'dtype': np.float64, 'name': 'avg_dew_point_2'},
 
     'AVG DAILY RELATIVE HUMIDITY (all hours) %': {'dtype': np.float64, 'name': 'observed_avg_humidity'},
 

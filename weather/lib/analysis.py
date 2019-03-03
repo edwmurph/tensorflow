@@ -1,5 +1,9 @@
 # TODO fix all this
 
+#
+# GET PROCESSED DATA
+#
+
 # split features from labels
 
 train_y = train_data['median_house_value']
