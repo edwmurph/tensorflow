@@ -5,15 +5,8 @@ validate_match(r'^3.*', sys.version)
 
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-import sklearn as skl
-import tensorflow as tf
-
-from sklearn.preprocessing import StandardScaler
 
 from schema_data import *
-
 
 #
 # GLOBAL VARIABLES / SETTINGS
@@ -57,8 +50,8 @@ data = data.drop('predominate_weather', 1);
 # TODO incorporate this somehow
 data = data.drop(['sunrise', 'sunset'], 1)
 
-# --remove features without enough (arbitrarily picked 70%) valid data
-data = data.drop(['snowfall_metar', 'sunshine_observed', 'snowfall_day', 'snowfall_nws'], 1)
+# --remove features without enough (arbitrarily picked 90%) valid data
+data = data.drop(['snowfall_metar', 'sunshine_observed', 'snowfall_day', 'snowfall_nws', 'snowfall_rtp', 'precip_hours'], 1)
 
 # --somewhat arbitrarily reduce tuplets of features that are highly correlated
 data = data.drop(['avg_feels_like', 'avg_temp_2', 'avg_solar_radiance_2', 'avg_heat_index', 'avg_heat_index_2', 'avg_dew_point_2', 'avg_wind_chill_temp', 'sunshine_percent', 'avg_daily_pressure_mb', 'lowest_pressure_mb', 'highest_pressure_mb', 'lowest_pressure_in', 'sunshine_calculated', 'max_wind_gust', 'highest_sustained_wind_speed', 'highest_pressure_in', 'avg_solar_radiance'], 1);
@@ -67,13 +60,15 @@ data = data.drop(['avg_feels_like', 'avg_temp_2', 'avg_solar_radiance_2', 'avg_h
 if not len(get_top_abs_correlations(data)) == 0:
     raise Exception('features are too correlated to continue')
 
+# --remove rows with invalid data
+data = data.dropna()
+
 #
 # EXPORT ENGINEERED DATASET
 #
 
 print('\nshape after feature selection/reduction:', data.shape)
 
-data.to_csv(path_or_buf='../data/processed_weather_data.csv')
-
+data.to_csv(path_or_buf='../data/processed_weather_data.csv', index=False)
 
 print('success!')
