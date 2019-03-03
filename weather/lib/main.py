@@ -1,1 +1,2 @@
-# TODO add main script
+import preprocess_data
+import analysis

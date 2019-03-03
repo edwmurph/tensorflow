@@ -1,3 +1,9 @@
+# https://github.com/MTG/sms-tools/issues/36
+from sys import platform as sys_pf
+if sys_pf == 'darwin':
+    import matplotlib
+    matplotlib.use("TkAgg")
+
 from util.noob import *
 
 import sys
@@ -6,6 +12,7 @@ validate_match(r'^3.*', sys.version)
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+import matplotlib.pyplot as plt
 
 from sklearn.preprocessing import StandardScaler
 
@@ -78,7 +85,7 @@ model = tf.keras.Sequential([
 
 model.compile(loss='mean_squared_error',
               optimizer=tf.keras.optimizers.RMSprop(0.001),
-              metrics=['mean_absolute_error', 'mean_squared_error'])
+              metrics=['mean_squared_error'])
 
 print('model summary:')
 model.summary()
@@ -87,6 +94,46 @@ model.summary()
 # TRAIN
 #
 
-model.fit(train_x, train_y, batch_size = 10, epochs = 10)
+# train for up to 25 epochs but stop if validation loss isn't improving enough
+# early_stop will usually stop at around 15-20 epochs
+EPOCHS=25
+early_stop = tf.keras.callbacks.EarlyStopping(
+    monitor='val_loss',
+    min_delta=0.01,
+    patience=5
+)
+training_history = model.fit(
+    train_x,
+    train_y,
+    batch_size = 10,
+    epochs = EPOCHS,
+    validation_split = 0.3,
+    callbacks=[early_stop]
+)
+
+ACTUAL_EPOCHS = EPOCHS - (EPOCHS - len(training_history.history['loss']))
+
+# --plot training accuracy over epochs
+plot_history(training_history)
+
+#
+# PREDICT
+#
+
+print('\npredictions:')
+loss, mse = model.evaluate(test_x, test_y, verbose=0)
+print("Testing set Mean Square Error: {:5.2f} °F".format(mse))
+
+
+test_predictions = model.predict(test_x).flatten()
+
+plt.scatter(test_y, test_predictions, s=.11)
+plt.title("Prediction Accuracy After %s Epochs" % (ACTUAL_EPOCHS))
+plt.xlabel('True Values [°F]')
+plt.ylabel('Predictions [°F]')
+plt.axis('equal')
+plt.axis('square')
+_ = plt.plot([-100, 100], [-100, 100])
+plt.show()
 
 print('success!')

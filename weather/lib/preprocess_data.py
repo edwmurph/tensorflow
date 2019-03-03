@@ -1,3 +1,9 @@
+# https://github.com/MTG/sms-tools/issues/36
+from sys import platform as sys_pf
+if sys_pf == 'darwin':
+    import matplotlib
+    matplotlib.use("TkAgg")
+
 from util.noob import *
 
 import sys
@@ -5,6 +11,8 @@ validate_match(r'^3.*', sys.version)
 
 import numpy as np
 import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 from schema_data import *
 
@@ -68,6 +76,13 @@ data = data.dropna()
 #
 
 print('\nshape after feature selection/reduction:', data.shape)
+
+# print correlation stats
+# print(data.describe().transpose())
+
+# print correlation matrix
+#sns.heatmap(data.corr())
+#plt.show()
 
 data.to_csv(path_or_buf='../data/processed_weather_data.csv', index=False)
 

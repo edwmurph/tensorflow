@@ -1,5 +1,13 @@
+# https://github.com/MTG/sms-tools/issues/36
+from sys import platform as sys_pf
+if sys_pf == 'darwin':
+    import matplotlib
+    matplotlib.use("TkAgg")
+
 import re
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
 
 # input: dataframe
 # output: first row of dataframe
@@ -73,3 +81,19 @@ def get_top_abs_correlations(df, threshold = 0.8):
     labels_to_drop = get_redundant_pairs(df)
     au_corr = au_corr.drop(labels=labels_to_drop).sort_values(ascending=False)
     return au_corr[au_corr>threshold]
+
+
+def plot_history(history):
+  hist = pd.DataFrame(history.history)
+  hist['epoch'] = history.epoch
+
+  plt.figure()
+  plt.xlabel('Epoch')
+  plt.ylabel('Mean Square Error [$°F^2$]')
+  plt.plot(hist['epoch'], hist['mean_squared_error'],
+           label='Train Error')
+  plt.plot(hist['epoch'], hist['val_mean_squared_error'],
+           label = 'Val Error')
+  plt.ylim([0,20])
+  plt.legend()
+  plt.show()
