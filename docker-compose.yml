@@ -1,0 +1,11 @@
+version: '3'
+services:
+  tf:
+    container_name: tf
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8888:8888
+    volumes:
+      - "./notebooks:/tf/notebooks"

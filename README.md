@@ -1,7 +1,14 @@
-# My Tensorflow project workspace
+# Tensorflow V2 + Jupyter Notebook starter
 
-# Setup
+# Usage
 
-- Install python v3+ via conda
-- install local conda virtual env via: `. scripts/init.py`
+Build and run image (automatically starts jupyter notebook):
+```
+docker-compose up
+```
+
+Execute bash in image:
+```
+docker exec -it $(docker ps -aqf "name=tf") /bin/bash
+```
 

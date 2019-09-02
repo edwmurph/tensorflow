@@ -2,5 +2,4 @@
 .DS_Store
 .ipynb_checkpoints
 __pycache__
-data/processed_weather_data.csv
-.env
+.local
